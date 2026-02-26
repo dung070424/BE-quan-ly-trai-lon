@@ -1169,3 +1169,237 @@ This generated password is for development use only. Your security configuration
 2026-02-26 14:19:11 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
 2026-02-26 14:19:11 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
 2026-02-26 14:19:11 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2026-02-26 14:51:53 [restartedMain] INFO  com.example.be.BeApplication - Starting BeApplication using Java 17.0.8 with PID 21172 (D:\quan-ly-trai-lon\BE-quan-ly-trai-lon\build\classes\java\main started by ADMIN in D:\quan-ly-trai-lon\BE-quan-ly-trai-lon)
+2026-02-26 14:51:53 [restartedMain] INFO  com.example.be.BeApplication - No active profile set, falling back to 1 default profile: "default"
+2026-02-26 14:51:53 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2026-02-26 14:51:53 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2026-02-26 14:51:54 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-02-26 14:51:54 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 299 ms. Found 1 JPA repository interface.
+2026-02-26 14:51:54 [restartedMain] INFO  o.s.boot.tomcat.TomcatWebServer - Tomcat initialized with port 8081 (http)
+2026-02-26 14:51:54 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2026-02-26 14:51:54 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/11.0.18]
+2026-02-26 14:51:54 [restartedMain] INFO  o.s.b.w.c.s.WebApplicationContextInitializer - Root WebApplicationContext: initialization completed in 1468 ms
+2026-02-26 14:51:55 [restartedMain] INFO  org.hibernate.orm.jpa - HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-02-26 14:51:55 [restartedMain] INFO  org.hibernate.orm.core - HHH000001: Hibernate ORM core version 7.2.4.Final
+2026-02-26 14:51:55 [restartedMain] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-02-26 14:51:55 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2026-02-26 14:51:55 [restartedMain] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@744feea2
+2026-02-26 14:51:55 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2026-02-26 14:51:55 [restartedMain] WARN  org.hibernate.orm.deprecation - HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-02-26 14:51:55 [restartedMain] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:postgresql://localhost:5432/quan-ly-trai-lon]
+	Database driver: PostgreSQL JDBC Driver
+	Database dialect: PostgreSQLDialect
+	Database version: 17.5
+	Default catalog/schema: quan-ly-trai-lon/public
+	Autocommit mode: undefined/unknown
+	Isolation level: READ_COMMITTED [default READ_COMMITTED]
+	JDBC fetch size: none
+	Pool: DataSourceConnectionProvider
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-02-26 14:51:56 [restartedMain] INFO  org.hibernate.orm.core - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-02-26 14:51:56 [restartedMain] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-02-26 14:51:56 [restartedMain] INFO  o.s.d.j.r.q.QueryEnhancerFactories - Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-02-26 14:51:56 [restartedMain] WARN  o.s.b.j.a.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-02-26 14:51:56 [restartedMain] WARN  o.s.b.s.a.UserDetailsServiceAutoConfiguration - 
+
+Using generated security password: 088f5e5d-cc00-46ff-99f2-616e5315358b
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2026-02-26 14:51:56 [restartedMain] INFO  o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with UserDetailsService bean with name inMemoryUserDetailsManager
+2026-02-26 14:51:57 [restartedMain] INFO  o.s.boot.tomcat.TomcatWebServer - Tomcat started on port 8081 (http) with context path '/'
+2026-02-26 14:51:57 [restartedMain] INFO  com.example.be.BeApplication - Started BeApplication in 4.37 seconds (process running for 5.387)
+2026-02-26 14:54:13 [http-nio-8081-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-02-26 14:54:13 [http-nio-8081-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2026-02-26 14:54:13 [http-nio-8081-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 1 ms
+2026-02-26 14:54:13 [http-nio-8081-exec-1] DEBUG org.hibernate.SQL - 
+    select
+        ps1_0.id,
+        ps1_0.customer,
+        ps1_0.price,
+        ps1_0.quantity,
+        ps1_0.sale_date,
+        ps1_0.total,
+        ps1_0.weight 
+    from
+        pig_sales ps1_0
+2026-02-26 14:54:14 [http-nio-8081-exec-5] DEBUG org.hibernate.SQL - 
+    select
+        ps1_0.id,
+        ps1_0.customer,
+        ps1_0.price,
+        ps1_0.quantity,
+        ps1_0.sale_date,
+        ps1_0.total,
+        ps1_0.weight 
+    from
+        pig_sales ps1_0
+2026-02-26 14:54:36 [http-nio-8081-exec-4] DEBUG org.hibernate.SQL - 
+    select
+        ps1_0.id,
+        ps1_0.customer,
+        ps1_0.price,
+        ps1_0.quantity,
+        ps1_0.sale_date,
+        ps1_0.total,
+        ps1_0.weight 
+    from
+        pig_sales ps1_0 
+    where
+        ps1_0.id=?
+2026-02-26 14:54:36 [http-nio-8081-exec-4] DEBUG org.hibernate.SQL - 
+    delete 
+    from
+        pig_sales 
+    where
+        id=?
+2026-02-26 14:54:38 [http-nio-8081-exec-2] DEBUG org.hibernate.SQL - 
+    select
+        ps1_0.id,
+        ps1_0.customer,
+        ps1_0.price,
+        ps1_0.quantity,
+        ps1_0.sale_date,
+        ps1_0.total,
+        ps1_0.weight 
+    from
+        pig_sales ps1_0
+2026-02-26 14:54:38 [http-nio-8081-exec-3] DEBUG org.hibernate.SQL - 
+    select
+        ps1_0.id,
+        ps1_0.customer,
+        ps1_0.price,
+        ps1_0.quantity,
+        ps1_0.sale_date,
+        ps1_0.total,
+        ps1_0.weight 
+    from
+        pig_sales ps1_0
+2026-02-26 14:57:31 [http-nio-8081-exec-7] DEBUG org.hibernate.SQL - 
+    select
+        ps1_0.id,
+        ps1_0.customer,
+        ps1_0.price,
+        ps1_0.quantity,
+        ps1_0.sale_date,
+        ps1_0.total,
+        ps1_0.weight 
+    from
+        pig_sales ps1_0
+2026-02-26 14:57:31 [http-nio-8081-exec-10] DEBUG org.hibernate.SQL - 
+    select
+        ps1_0.id,
+        ps1_0.customer,
+        ps1_0.price,
+        ps1_0.quantity,
+        ps1_0.sale_date,
+        ps1_0.total,
+        ps1_0.weight 
+    from
+        pig_sales ps1_0
+2026-02-26 15:02:12 [http-nio-8081-exec-6] DEBUG org.hibernate.SQL - 
+    select
+        ps1_0.id,
+        ps1_0.customer,
+        ps1_0.price,
+        ps1_0.quantity,
+        ps1_0.sale_date,
+        ps1_0.total,
+        ps1_0.weight 
+    from
+        pig_sales ps1_0
+2026-02-26 15:02:12 [http-nio-8081-exec-4] DEBUG org.hibernate.SQL - 
+    select
+        ps1_0.id,
+        ps1_0.customer,
+        ps1_0.price,
+        ps1_0.quantity,
+        ps1_0.sale_date,
+        ps1_0.total,
+        ps1_0.weight 
+    from
+        pig_sales ps1_0
+2026-02-26 15:03:24 [http-nio-8081-exec-8] DEBUG org.hibernate.SQL - 
+    select
+        ps1_0.id,
+        ps1_0.customer,
+        ps1_0.price,
+        ps1_0.quantity,
+        ps1_0.sale_date,
+        ps1_0.total,
+        ps1_0.weight 
+    from
+        pig_sales ps1_0 
+    where
+        ps1_0.id=?
+2026-02-26 15:03:24 [http-nio-8081-exec-8] DEBUG org.hibernate.SQL - 
+    delete 
+    from
+        pig_sales 
+    where
+        id=?
+2026-02-26 15:03:39 [http-nio-8081-exec-10] DEBUG org.hibernate.SQL - 
+    select
+        ps1_0.id,
+        ps1_0.customer,
+        ps1_0.price,
+        ps1_0.quantity,
+        ps1_0.sale_date,
+        ps1_0.total,
+        ps1_0.weight 
+    from
+        pig_sales ps1_0 
+    where
+        ps1_0.id=?
+2026-02-26 15:03:39 [http-nio-8081-exec-10] DEBUG org.hibernate.SQL - 
+    delete 
+    from
+        pig_sales 
+    where
+        id=?
+2026-02-26 15:05:23 [http-nio-8081-exec-5] DEBUG org.hibernate.SQL - 
+    select
+        ps1_0.id,
+        ps1_0.customer,
+        ps1_0.price,
+        ps1_0.quantity,
+        ps1_0.sale_date,
+        ps1_0.total,
+        ps1_0.weight 
+    from
+        pig_sales ps1_0
+2026-02-26 15:05:24 [http-nio-8081-exec-6] DEBUG org.hibernate.SQL - 
+    select
+        ps1_0.id,
+        ps1_0.customer,
+        ps1_0.price,
+        ps1_0.quantity,
+        ps1_0.sale_date,
+        ps1_0.total,
+        ps1_0.weight 
+    from
+        pig_sales ps1_0
+2026-02-26 15:08:01 [http-nio-8081-exec-3] DEBUG org.hibernate.SQL - 
+    select
+        ps1_0.id,
+        ps1_0.customer,
+        ps1_0.price,
+        ps1_0.quantity,
+        ps1_0.sale_date,
+        ps1_0.total,
+        ps1_0.weight 
+    from
+        pig_sales ps1_0
+2026-02-26 15:08:01 [http-nio-8081-exec-9] DEBUG org.hibernate.SQL - 
+    select
+        ps1_0.id,
+        ps1_0.customer,
+        ps1_0.price,
+        ps1_0.quantity,
+        ps1_0.sale_date,
+        ps1_0.total,
+        ps1_0.weight 
+    from
+        pig_sales ps1_0
