@@ -18,4 +18,5 @@ public class PigSaleDto {
     private BigDecimal price;
     private BigDecimal total;
     private String customer;
+    private String note;
 }

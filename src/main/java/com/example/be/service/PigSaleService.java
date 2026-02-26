@@ -41,6 +41,7 @@ public class PigSaleService {
         existingPigSale.setPrice(pigSaleDto.getPrice());
         existingPigSale.setTotal(pigSaleDto.getTotal());
         existingPigSale.setCustomer(pigSaleDto.getCustomer());
+        existingPigSale.setNote(pigSaleDto.getNote());
         
         PigSale updatedPigSale = pigSaleRepository.save(existingPigSale);
         return convertToDto(updatedPigSale);
@@ -60,7 +61,8 @@ public class PigSaleService {
                 pigSale.getWeight(),
                 pigSale.getPrice(),
                 pigSale.getTotal(),
-                pigSale.getCustomer()
+                pigSale.getCustomer(),
+                pigSale.getNote()
         );
     }
 
@@ -72,6 +74,7 @@ public class PigSaleService {
         pigSale.setPrice(pigSaleDto.getPrice());
         pigSale.setTotal(pigSaleDto.getTotal());
         pigSale.setCustomer(pigSaleDto.getCustomer());
+        pigSale.setNote(pigSaleDto.getNote());
         return pigSale;
     }
 }

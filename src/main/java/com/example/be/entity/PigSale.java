@@ -36,4 +36,7 @@ public class PigSale {
 
     @Column(name = "customer")
     private String customer;
+
+    @Column(name = "note", columnDefinition = "TEXT")
+    private String note;
 }
