@@ -35,4 +35,7 @@ public class Employee {
 
     @Column(name = "gender")
     private String gender;
+
+    @Column(name = "phone_number")
+    private String phoneNumber;
 }

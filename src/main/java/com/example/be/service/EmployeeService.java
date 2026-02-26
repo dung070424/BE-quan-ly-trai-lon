@@ -46,6 +46,7 @@ public class EmployeeService {
         existingEmployee.setIdentityCard(employeeDto.getIdentityCard());
         existingEmployee.setAddress(employeeDto.getAddress());
         existingEmployee.setGender(employeeDto.getGender());
+        existingEmployee.setPhoneNumber(employeeDto.getPhoneNumber());
         
         Employee updatedEmployee = employeeRepository.save(existingEmployee);
         return convertToDto(updatedEmployee);
@@ -90,7 +91,8 @@ public class EmployeeService {
                 employee.getDateOfBirth(),
                 employee.getIdentityCard(),
                 employee.getAddress(),
-                employee.getGender()
+                employee.getGender(),
+                employee.getPhoneNumber()
         );
     }
 
@@ -102,6 +104,7 @@ public class EmployeeService {
         employee.setIdentityCard(employeeDto.getIdentityCard());
         employee.setAddress(employeeDto.getAddress());
         employee.setGender(employeeDto.getGender());
+        employee.setPhoneNumber(employeeDto.getPhoneNumber());
         return employee;
     }
 }

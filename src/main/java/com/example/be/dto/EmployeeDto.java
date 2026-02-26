@@ -17,4 +17,5 @@ public class EmployeeDto {
     private String identityCard;
     private String address;
     private String gender;
+    private String phoneNumber;
 }
