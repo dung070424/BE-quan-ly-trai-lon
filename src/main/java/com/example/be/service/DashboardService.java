@@ -8,6 +8,9 @@ import com.example.be.repository.CamImportHistoryRepository;
 import com.example.be.repository.EmployeeRepository;
 import com.example.be.repository.MedicineImportHistoryRepository;
 import com.example.be.repository.PigSaleRepository;
+import com.example.be.repository.SowRepository;
+import com.example.be.repository.FarrowingRecordRepository;
+import com.example.be.entity.FarrowingRecord;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -31,11 +34,37 @@ public class DashboardService {
     @Autowired
     private CamImportHistoryRepository camImportRepository;
 
+    @Autowired
+    private SowRepository sowRepository;
+
+    @Autowired
+    private FarrowingRecordRepository farrowingRecordRepository;
+
     public DashboardDto getDashboardSummary() {
         DashboardDto dto = new DashboardDto();
 
         // 1. Employees
         dto.setTotalEmployees((int) employeeRepository.count());
+
+        // 1.5 Sows & Farrowing
+        dto.setTotalSows((int) sowRepository.count());
+        List<FarrowingRecord> farrowingRecords = farrowingRecordRepository.findAll();
+        int totalBornAlive = 0;
+        Map<String, Integer> pigsBornByMonth = new TreeMap<>();
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM");
+
+        for (FarrowingRecord fr : farrowingRecords) {
+            int bornAlive = (fr.getBornAlive() != null) ? fr.getBornAlive() : 0;
+            totalBornAlive += bornAlive;
+
+            if (fr.getFarrowingDate() != null) {
+                String monthKey = fr.getFarrowingDate().format(dateFormatter);
+                int currentQty = pigsBornByMonth.getOrDefault(monthKey, 0);
+                pigsBornByMonth.put(monthKey, currentQty + bornAlive);
+            }
+        }
+        dto.setTotalBornAlive(totalBornAlive);
+        dto.setPigsBornOverTime(pigsBornByMonth);
 
         // 2. Pig Sales (Revenue)
         List<PigSale> sales = pigSaleRepository.findAll();
@@ -44,7 +73,7 @@ public class DashboardService {
         Map<String, Double> salesByMonth = new TreeMap<>(); // TreeMap keeps it sorted
         Map<String, Integer> pigsSoldByMonth = new TreeMap<>();
 
-        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM");
+        // Formatter already defined above
 
         for (PigSale sale : sales) {
             double saleTotal = (sale.getTotal() != null ? sale.getTotal().doubleValue() : 0.0);

@@ -15,9 +15,12 @@ public class DashboardDto {
     private Integer totalEmployees;
     private Double totalMedicineCost;
     private Double totalFeedCost;
+    private Integer totalSows;
+    private Integer totalBornAlive;
     
     // Grouped by Month string, e.g. "2023-01" -> value
     private Map<String, Double> salesOverTime; 
     private Map<String, Double> expensesOverTime;
     private Map<String, Integer> pigsSoldOverTime;
+    private Map<String, Integer> pigsBornOverTime;
 }
