@@ -26,6 +26,15 @@ public class EmployeeService {
         return convertToDto(employee);
     }
 
+    @Autowired
+    private com.example.be.repository.UserRepository userRepository;
+
+    @Autowired
+    private org.springframework.security.crypto.password.PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private EmailService emailService;
+
     public EmployeeDto createEmployee(EmployeeDto employeeDto) {
         Employee employee = convertToEntity(employeeDto);
         
@@ -33,6 +42,29 @@ public class EmployeeService {
         employee.setEmployeeCode(generateNextEmployeeCode());
         
         Employee savedEmployee = employeeRepository.save(employee);
+
+        // Auto-create a user account for the new employee
+        String generatedPassword = java.util.UUID.randomUUID().toString().substring(0, 8);
+        com.example.be.entity.User newUser = new com.example.be.entity.User();
+        newUser.setUsername(savedEmployee.getEmployeeCode());
+        newUser.setPassword(passwordEncoder.encode(generatedPassword));
+        newUser.setRole(com.example.be.entity.Role.NHANVIEN);
+        userRepository.save(newUser);
+
+        // Send credentials via email if email is provided
+        if (savedEmployee.getEmail() != null && !savedEmployee.getEmail().trim().isEmpty()) {
+            try {
+                emailService.sendNewEmployeeCredentials(
+                        savedEmployee.getEmail(),
+                        savedEmployee.getName(),
+                        newUser.getUsername(),
+                        generatedPassword
+                );
+            } catch (Exception e) {
+                System.err.println("Failed to send email to " + savedEmployee.getEmail() + ": " + e.getMessage());
+            }
+        }
+
         return convertToDto(savedEmployee);
     }
 
@@ -47,6 +79,8 @@ public class EmployeeService {
         existingEmployee.setAddress(employeeDto.getAddress());
         existingEmployee.setGender(employeeDto.getGender());
         existingEmployee.setPhoneNumber(employeeDto.getPhoneNumber());
+        existingEmployee.setEmail(employeeDto.getEmail());
+        existingEmployee.setImage(employeeDto.getImage());
         
         Employee updatedEmployee = employeeRepository.save(existingEmployee);
         return convertToDto(updatedEmployee);
@@ -92,7 +126,9 @@ public class EmployeeService {
                 employee.getIdentityCard(),
                 employee.getAddress(),
                 employee.getGender(),
-                employee.getPhoneNumber()
+                employee.getPhoneNumber(),
+                employee.getEmail(),
+                employee.getImage()
         );
     }
 
@@ -105,6 +141,8 @@ public class EmployeeService {
         employee.setAddress(employeeDto.getAddress());
         employee.setGender(employeeDto.getGender());
         employee.setPhoneNumber(employeeDto.getPhoneNumber());
+        employee.setEmail(employeeDto.getEmail());
+        employee.setImage(employeeDto.getImage());
         return employee;
     }
 }

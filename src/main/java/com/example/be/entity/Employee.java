@@ -38,4 +38,10 @@ public class Employee {
 
     @Column(name = "phone_number")
     private String phoneNumber;
+
+    @Column(name = "email")
+    private String email;
+
+    @Column(name = "image", columnDefinition = "TEXT")
+    private String image;
 }

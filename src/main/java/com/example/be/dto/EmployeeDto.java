@@ -18,4 +18,6 @@ public class EmployeeDto {
     private String address;
     private String gender;
     private String phoneNumber;
+    private String email;
+    private String image;
 }
