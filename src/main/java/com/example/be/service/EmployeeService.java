@@ -45,7 +45,8 @@ public class EmployeeService {
 
         // Auto-create a user account for the new employee
         String generatedPassword = java.util.UUID.randomUUID().toString().substring(0, 8);
-        com.example.be.entity.User newUser = new com.example.be.entity.User();
+        com.example.be.entity.User newUser = userRepository.findByUsername(savedEmployee.getEmployeeCode())
+                .orElse(new com.example.be.entity.User());
         newUser.setUsername(savedEmployee.getEmployeeCode());
         newUser.setPassword(passwordEncoder.encode(generatedPassword));
         newUser.setRole(com.example.be.entity.Role.NHANVIEN);
@@ -86,9 +87,15 @@ public class EmployeeService {
         return convertToDto(updatedEmployee);
     }
 
+    @org.springframework.transaction.annotation.Transactional
     public void deleteEmployee(Long id) {
         Employee employee = employeeRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Employee not found with id: " + id));
+                
+        // Delete associated user to prevent orphaned accounts
+        userRepository.findByUsername(employee.getEmployeeCode())
+                .ifPresent(user -> userRepository.delete(user));
+                
         employeeRepository.delete(employee);
     }
 
