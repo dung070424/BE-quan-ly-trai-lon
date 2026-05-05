@@ -12,4 +12,6 @@ public interface EmployeeRepository extends JpaRepository<Employee, Long> {
     
     // Find the last inserted employee to get the latest employee code
     Optional<Employee> findTopByOrderByIdDesc();
+
+    Optional<Employee> findByEmployeeCode(String employeeCode);
 }

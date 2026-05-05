@@ -4,6 +4,8 @@ import com.example.be.dto.JwtResponse;
 import com.example.be.dto.LoginRequest;
 import com.example.be.security.jwt.JwtUtils;
 import com.example.be.security.services.UserDetailsImpl;
+import com.example.be.repository.EmployeeRepository;
+import com.example.be.entity.Employee;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -26,6 +28,9 @@ public class AuthController {
     @Autowired
     JwtUtils jwtUtils;
 
+    @Autowired
+    EmployeeRepository employeeRepository;
+
     @PostMapping("/login")
     public ResponseEntity<?> authenticateUser(@RequestBody LoginRequest loginRequest) {
 
@@ -42,9 +47,22 @@ public class AuthController {
 
         String role = roles.isEmpty() ? null : roles.get(0).replace("ROLE_", "");
 
+        String name = "Admin";
+        String image = null;
+
+        if (role != null && role.equals("NHANVIEN")) {
+            Employee employee = employeeRepository.findByEmployeeCode(userDetails.getUsername()).orElse(null);
+            if (employee != null) {
+                name = employee.getName();
+                image = employee.getImage();
+            }
+        }
+
         return ResponseEntity.ok(new JwtResponse(jwt,
                 userDetails.getId(),
                 userDetails.getUsername(),
-                role));
+                role,
+                name,
+                image));
     }
 }
