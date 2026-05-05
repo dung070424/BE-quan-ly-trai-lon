@@ -25,4 +25,7 @@ public class User {
     @Enumerated(EnumType.STRING)
     @Column(name = "role", nullable = false)
     private Role role;
+
+    @Column(name = "reset_code")
+    private String resetCode;
 }
