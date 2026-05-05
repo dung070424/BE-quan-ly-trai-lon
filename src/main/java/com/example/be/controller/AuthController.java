@@ -22,6 +22,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -98,9 +99,10 @@ public class AuthController {
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Không tìm thấy tài khoản hệ thống cho nhân viên này.");
             }
 
-            // Generate 6-digit OTP
+            // Generate 6-digit OTP and set expiry to 1 minute
             String otpCode = String.format("%06d", new java.util.Random().nextInt(999999));
             user.setResetCode(otpCode);
+            user.setResetCodeExpiry(LocalDateTime.now().plusMinutes(1));
             userRepository.save(user);
 
             // Send email asynchronously to avoid blocking the UI
@@ -131,13 +133,22 @@ public class AuthController {
             }
 
             if (user.getResetCode() == null || !user.getResetCode().equals(request.getResetCode())) {
-                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Mã xác nhận không hợp lệ hoặc đã hết hạn.");
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Mã xác nhận không hợp lệ.");
+            }
+
+            // Check expiry
+            if (user.getResetCodeExpiry() == null || LocalDateTime.now().isAfter(user.getResetCodeExpiry())) {
+                user.setResetCode(null);
+                user.setResetCodeExpiry(null);
+                userRepository.save(user);
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Mã xác nhận đã hết hiệu lực. Vui lòng yêu cầu mã mới.");
             }
 
             // Update new password
             user.setPassword(passwordEncoder.encode(request.getNewPassword()));
-            // Clear reset code
+            // Clear reset code and expiry
             user.setResetCode(null);
+            user.setResetCodeExpiry(null);
             userRepository.save(user);
 
             return ResponseEntity.ok().body("{\"message\": \"Đặt lại mật khẩu thành công!\"}");
