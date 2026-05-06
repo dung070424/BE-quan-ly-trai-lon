@@ -136,9 +136,21 @@ public class AuthController {
             if (user == null) {
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Không tìm thấy tài khoản.");
             }
-            if (request.getNewPassword() == null || request.getNewPassword().length() < 6) {
-                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Mật khẩu phải dài ít nhất 6 ký tự.");
+
+            // Log để kiểm tra (xem trong console của Backend)
+            System.out.println("DEBUG: Username=" + request.getUsername() + ", OldPwd=" + request.getOldPassword());
+
+            // Kiểm tra mật khẩu cũ nếu có yêu cầu (đối với trường hợp đổi mật khẩu chủ động)
+            if (request.getOldPassword() != null && !request.getOldPassword().isEmpty()) {
+                if (!passwordEncoder.matches(request.getOldPassword(), user.getPassword())) {
+                    return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Mật khẩu cũ không chính xác.");
+                }
             }
+
+            if (request.getNewPassword() == null || request.getNewPassword().length() < 6) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Mật khẩu mới phải dài ít nhất 6 ký tự.");
+            }
+            
             user.setPassword(passwordEncoder.encode(request.getNewPassword()));
             user.setMustChangePassword(false);
             userRepository.save(user);
