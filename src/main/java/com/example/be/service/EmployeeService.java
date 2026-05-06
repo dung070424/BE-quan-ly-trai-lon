@@ -50,6 +50,7 @@ public class EmployeeService {
         newUser.setUsername(savedEmployee.getEmployeeCode());
         newUser.setPassword(passwordEncoder.encode(generatedPassword));
         newUser.setRole(com.example.be.entity.Role.NHANVIEN);
+        newUser.setMustChangePassword(true);
         userRepository.save(newUser);
 
         // Send credentials via email if email is provided

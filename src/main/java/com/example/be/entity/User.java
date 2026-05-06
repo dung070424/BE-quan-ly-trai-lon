@@ -32,4 +32,7 @@ public class User {
 
     @Column(name = "reset_code_expiry")
     private LocalDateTime resetCodeExpiry;
+
+    @Column(name = "must_change_password", columnDefinition = "boolean default false")
+    private Boolean mustChangePassword = false;
 }

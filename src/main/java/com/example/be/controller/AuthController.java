@@ -2,6 +2,7 @@ package com.example.be.controller;
 
 import com.example.be.dto.JwtResponse;
 import com.example.be.dto.LoginRequest;
+import com.example.be.dto.ChangePasswordRequest;
 import com.example.be.security.jwt.JwtUtils;
 import com.example.be.security.services.UserDetailsImpl;
 import com.example.be.repository.EmployeeRepository;
@@ -75,12 +76,16 @@ public class AuthController {
             }
         }
 
+        User userEntity = userRepository.findByUsername(userDetails.getUsername()).orElse(null);
+        boolean mustChangePassword = userEntity != null && Boolean.TRUE.equals(userEntity.getMustChangePassword());
+
         return ResponseEntity.ok(new JwtResponse(jwt,
                 userDetails.getId(),
                 userDetails.getUsername(),
                 role,
                 name,
-                image));
+                image,
+                mustChangePassword));
     }
 
     @PostMapping("/forgot-password")
@@ -124,6 +129,25 @@ public class AuthController {
         }
     }
 
+    @PostMapping("/change-password")
+    public ResponseEntity<?> changePassword(@RequestBody ChangePasswordRequest request) {
+        try {
+            User user = userRepository.findByUsername(request.getUsername()).orElse(null);
+            if (user == null) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Không tìm thấy tài khoản.");
+            }
+            if (request.getNewPassword() == null || request.getNewPassword().length() < 6) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Mật khẩu phải dài ít nhất 6 ký tự.");
+            }
+            user.setPassword(passwordEncoder.encode(request.getNewPassword()));
+            user.setMustChangePassword(false);
+            userRepository.save(user);
+            return ResponseEntity.ok().body("{\"message\": \"Đổi mật khẩu thành công!\"}");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Đã xảy ra lỗi: " + e.getMessage());
+        }
+    }
+
     @PostMapping("/reset-password")
     public ResponseEntity<?> resetPassword(@RequestBody ResetPasswordRequest request) {
         try {
@@ -146,9 +170,10 @@ public class AuthController {
 
             // Update new password
             user.setPassword(passwordEncoder.encode(request.getNewPassword()));
-            // Clear reset code and expiry
+            // Clear reset code, expiry, and mustChangePassword flag
             user.setResetCode(null);
             user.setResetCodeExpiry(null);
+            user.setMustChangePassword(false);
             userRepository.save(user);
 
             return ResponseEntity.ok().body("{\"message\": \"Đặt lại mật khẩu thành công!\"}");
