@@ -27,6 +27,11 @@ public class EmployeeController {
         return ResponseEntity.ok(employeeService.getEmployeeById(id));
     }
 
+    @GetMapping("/code/{code}")
+    public ResponseEntity<EmployeeDto> getEmployeeByCode(@PathVariable String code) {
+        return ResponseEntity.ok(employeeService.getEmployeeByCode(code));
+    }
+
     @PostMapping
     public ResponseEntity<EmployeeDto> createEmployee(@RequestBody EmployeeDto employeeDto) {
         return new ResponseEntity<>(employeeService.createEmployee(employeeDto), HttpStatus.CREATED);

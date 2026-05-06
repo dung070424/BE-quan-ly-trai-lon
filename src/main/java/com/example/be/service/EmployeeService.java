@@ -26,6 +26,12 @@ public class EmployeeService {
         return convertToDto(employee);
     }
 
+    public EmployeeDto getEmployeeByCode(String code) {
+        Employee employee = employeeRepository.findByEmployeeCode(code)
+                .orElseThrow(() -> new RuntimeException("Không tìm thấy nhân viên với mã: " + code));
+        return convertToDto(employee);
+    }
+
     @Autowired
     private com.example.be.repository.UserRepository userRepository;
 
