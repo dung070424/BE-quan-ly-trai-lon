@@ -160,6 +160,28 @@ public class AuthController {
         }
     }
 
+    @PostMapping("/verify-reset-code")
+    public ResponseEntity<?> verifyResetCode(@RequestBody ResetPasswordRequest request) {
+        try {
+            User user = userRepository.findByUsername(request.getUsername()).orElse(null);
+            if (user == null) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Không tìm thấy tài khoản.");
+            }
+
+            if (user.getResetCode() == null || !user.getResetCode().equals(request.getResetCode())) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Mã xác nhận không chính xác.");
+            }
+
+            if (user.getResetCodeExpiry() == null || LocalDateTime.now().isAfter(user.getResetCodeExpiry())) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Mã xác nhận đã hết hạn.");
+            }
+
+            return ResponseEntity.ok().body("{\"message\": \"Mã xác nhận hợp lệ.\"}");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Lỗi: " + e.getMessage());
+        }
+    }
+
     @PostMapping("/reset-password")
     public ResponseEntity<?> resetPassword(@RequestBody ResetPasswordRequest request) {
         try {
